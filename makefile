@@ -2,10 +2,12 @@
 CC = g++
 # Compiler flags
 CFLAGS = -Wall -O2
+# Linker flags
+LDFLAGS = -static-libgcc -static-libstdc++ -Wl,-subsystem,console
 
 # Source directory and wildcard to find all .cpp files
-SRC_DIR = .
-SRCS = $(wildcard $(SRC_DIR)/*.cpp)
+SRC_DIR = src
+SRCS = $(wildcard $(SRC_DIR)/**/*.cpp $(SRC_DIR)/*.cpp)
 
 # Object directory
 OBJ_DIR = obj
@@ -19,18 +21,15 @@ EXEC = chess
 all: $(EXEC)
 
 $(EXEC): $(OBJS)
-	$(CC) $(CFLAGS) $(OBJS) -o $(EXEC)
+	$(CC) $(CFLAGS) $(OBJS) $(LDFLAGS) -o $@
 
 # Rule to compile .cpp to .o
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.cpp
+	@mkdir -p $(dir $@)
 	$(CC) $(CFLAGS) -c $< -o $@
 
 # Clean target
 clean:
-	rm -rf $(OBJ_DIR)/*.o $(EXEC)
-	rm -rf $(OBJ_DIR)
-
-# Ensure obj directory exists
-$(shell mkdir -p $(OBJ_DIR))
+	rm -rf $(OBJ_DIR) $(EXEC)
 
 .PHONY: all clean

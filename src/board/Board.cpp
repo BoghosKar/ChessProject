@@ -14,18 +14,18 @@ Board::Board()
 
 void Board::printBoard()
 {
-    std::cout << "  A B C D E F G H" << std::endl;
+    std::cout << std::endl;
 
     for(int i = 0; i < 8; ++i)
     {
-        std::cout << 8 - i << ' ';
+        std::cout << 8 - i << "  ";
         for(int j = 0; j < 8; ++j)
         {
-            std::cout << grid[i][j] << ' ';
+            std::cout << grid[i][j] << " ";
         }
-        std::cout << 8 - i << std::endl;
+        std::cout << std::endl;
     }
-    std::cout << "  A B C D E F G H" << std::endl;
+    std::cout << "   A B C D E F G H" << std::endl;
 }
 
 void Board::placePiece(char piece, int row, int col)
