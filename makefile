@@ -1,35 +1,19 @@
-# Compiler
-CC = g++
-# Compiler flags
-CFLAGS = -Wall -O2
-# Linker flags
-LDFLAGS = -static-libgcc -static-libstdc++ -Wl,-subsystem,console
+CXX = g++
+CXXFLAGS = -std=c++11 -Wall
+LDFLAGS = 
 
-# Source directory and wildcard to find all .cpp files
 SRC_DIR = src
-SRCS = $(wildcard $(SRC_DIR)/**/*.cpp $(SRC_DIR)/*.cpp)
-
-# Object directory
-OBJ_DIR = obj
-# Object files (automatically generated from SRCS)
-OBJS = $(patsubst $(SRC_DIR)/%.cpp,$(OBJ_DIR)/%.o,$(SRCS))
-
-# Executable name
+SRC = $(SRC_DIR)/Board.cpp $(SRC_DIR)/King.cpp $(SRC_DIR)/Queen.cpp $(SRC_DIR)/main.cpp
+OBJ = $(SRC:.cpp=.o)
 EXEC = chess
 
-# Default target
 all: $(EXEC)
 
-$(EXEC): $(OBJS)
-	$(CC) $(CFLAGS) $(OBJS) $(LDFLAGS) -o $@
+$(EXEC): $(OBJ)
+	$(CXX) $(LDFLAGS) -o $@ $^
 
-# Rule to compile .cpp to .o
-$(OBJ_DIR)/%.o: $(SRC_DIR)/%.cpp
-	@mkdir -p $(dir $@)
-	$(CC) $(CFLAGS) -c $< -o $@
+$(SRC_DIR)/%.o: $(SRC_DIR)/%.cpp
+	$(CXX) $(CXXFLAGS) -c $< -o $@
 
-# Clean target
 clean:
-	rm -rf $(OBJ_DIR) $(EXEC)
-
-.PHONY: all clean
+	rm -f $(OBJ) $(EXEC)
