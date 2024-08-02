@@ -24,5 +24,6 @@
     "type_traits": "cpp",
     "typeinfo": "cpp",
     "istream": "cpp"
-  }
+  },
+  "C_Cpp.errorSquiggles": "disabled"
 }
